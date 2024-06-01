@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AddFeedForm from "./components/AddFeedForm";
 import FeedList from "./components/FeedList";
-import "./styles.css";
 
 const App = () => {
   const [feeds, setFeeds] = useState([]);
