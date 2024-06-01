@@ -19,11 +19,15 @@ const App = () => {
     chrome.storage.local.set({ feeds: newFeeds });
   };
 
+  const handleRemoveFeed = (updatedFeeds) => {
+    setFeeds(updatedFeeds);
+  };
+
   return (
     <div className="App">
       <h1>RSS Connect</h1>
       <AddFeedForm addFeed={addFeed} />
-      <FeedList feeds={feeds} />
+      <FeedList feeds={feeds} onRemoveFeed={handleRemoveFeed} />
     </div>
   );
 };
