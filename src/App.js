@@ -6,6 +6,7 @@ const App = () => {
   const [feeds, setFeeds] = useState([]);
 
   useEffect(() => {
+    // eslint-disable-next-line no-undef
     chrome.storage.local.get(["feeds"], (result) => {
       setFeeds(result.feeds || []);
     });
@@ -14,6 +15,7 @@ const App = () => {
   const addFeed = (feedUrl) => {
     const newFeeds = [...feeds, feedUrl];
     setFeeds(newFeeds);
+    // eslint-disable-next-line no-undef
     chrome.storage.local.set({ feeds: newFeeds });
   };
 
