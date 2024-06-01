@@ -21,7 +21,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1>RSS Reader</h1>
+      <h1>RSS Connect</h1>
       <AddFeedForm addFeed={addFeed} />
       <FeedList feeds={feeds} />
     </div>
