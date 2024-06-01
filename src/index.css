@@ -12,3 +12,43 @@ button {
 #feeds div {
   margin-top: 20px;
 }
+
+/* styles.css */
+
+/* Container styling */
+.feed-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+/* Text styling */
+.feed-item h3 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.feed-item p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+/* Link styling */
+.feed-item a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.feed-item a:hover {
+  text-decoration: underline;
+}
+
+/* Image styling */
+.feed-item img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
