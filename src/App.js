@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import AddFeedForm from "./components/AddFeedForm";
+import FeedList from "./components/FeedList";
+import "./styles.css";
 
-function App() {
+const App = () => {
+  const [feeds, setFeeds] = useState([]);
+
+  useEffect(() => {
+    chrome.storage.local.get(["feeds"], (result) => {
+      setFeeds(result.feeds || []);
+    });
+  }, []);
+
+  const addFeed = (feedUrl) => {
+    const newFeeds = [...feeds, feedUrl];
+    setFeeds(newFeeds);
+    chrome.storage.local.set({ feeds: newFeeds });
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>RSS Reader</h1>
+      <AddFeedForm addFeed={addFeed} />
+      <FeedList feeds={feeds} />
     </div>
   );
-}
+};
 
 export default App;
