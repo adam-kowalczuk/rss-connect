@@ -7,6 +7,7 @@ button {
   width: 100%;
   padding: 8px;
   margin: 5px 0;
+  box-sizing: border-box;
 }
 
 #feeds div {
@@ -16,6 +17,10 @@ button {
 /* styles.css */
 
 /* Container styling */
+.App {
+  min-width: 300px;
+}
+
 .feed-item {
   border: 1px solid #ddd;
   padding: 10px;

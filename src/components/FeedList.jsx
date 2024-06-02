@@ -1,68 +1,8 @@
-// import React, { useEffect, useState } from "react";
-// import FeedItem from "./FeedItem";
+import React from "react";
 
-// const FeedList = ({ feeds }) => {
-//   const [feedItems, setFeedItems] = useState([]);
-
-//   useEffect(() => {
-//     const fetchFeeds = async () => {
-//       let allItems = [];
-//       for (const feedUrl of feeds) {
-//         const response = await fetch(feedUrl);
-//         const text = await response.text();
-//         const data = new window.DOMParser().parseFromString(text, "text/xml");
-//         const items = data.querySelectorAll("item");
-//         const feedData = Array.from(items).map((item) => ({
-//           title: item.querySelector("title").textContent,
-//           description: item.querySelector("description").textContent,
-//           link: item.querySelector("link").textContent
-//         }));
-//         allItems = allItems.concat(feedData);
-//       }
-//       setFeedItems(allItems);
-//     };
-//     fetchFeeds();
-//   }, [feeds]);
-
-//   return (
-//     <div>
-//       {feedItems.map((item, index) => (
-//         <FeedItem key={index} item={item} />
-//       ))}
-//     </div>
-//   );
-// };
-
-// export default FeedList;
-
-import React, { useEffect, useState } from "react";
-import FeedItem from "./FeedItem";
-
-const FeedList = ({ feeds, onRemoveFeed }) => {
-  const [feedItems, setFeedItems] = useState([]);
-
-  useEffect(() => {
-    const fetchFeeds = async () => {
-      let allItems = [];
-      for (const feedUrl of feeds) {
-        const response = await fetch(feedUrl);
-        const text = await response.text();
-        const data = new window.DOMParser().parseFromString(text, "text/xml");
-        const items = data.querySelectorAll("item");
-        const feedData = Array.from(items).map((item) => ({
-          title: item.querySelector("title").textContent,
-          description: item.querySelector("description").textContent,
-          link: item.querySelector("link").textContent
-        }));
-        allItems = allItems.concat(feedData);
-      }
-      setFeedItems(allItems);
-    };
-    fetchFeeds();
-  }, [feeds]);
-
+const FeedList = ({ feeds, onRemoveFeed, onSelectFeed }) => {
   const handleRemoveFeed = (feedUrlToRemove) => {
-    const updatedFeeds = feeds.filter((feed) => feed !== feedUrlToRemove);
+    const updatedFeeds = feeds.filter((feed) => feed.url !== feedUrlToRemove);
     onRemoveFeed(updatedFeeds);
     // Persist updated feeds to chrome.storage.local
     // eslint-disable-next-line no-undef
@@ -71,22 +11,14 @@ const FeedList = ({ feeds, onRemoveFeed }) => {
 
   return (
     <div>
-      {feedItems.map((item, index) => (
+      {feeds.map((feed, index) => (
         <div key={index}>
-          <FeedItem item={item} />
+          <span onClick={() => onSelectFeed(feed.url)}>{feed.title}</span>
+          <button onClick={() => handleRemoveFeed(feed.url)}>
+            Remove Feed
+          </button>
         </div>
       ))}
-      {/* Display remove buttons for each feed */}
-      <div>
-        {feeds.map((feedUrl, index) => (
-          <div key={index}>
-            <span>{feedUrl}</span>
-            <button onClick={() => handleRemoveFeed(feedUrl)}>
-              Remove Feed
-            </button>
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
